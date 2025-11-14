@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv8s2qrafyv6h"]
+
+[ext_resource type="Script" uid="uid://digm0csc7kca" path="res://count_down.gd" id="1_0rk1c"]
+
+[node name="CountDown" type="CanvasLayer"]
+script = ExtResource("1_0rk1c")
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Start" type="Button" parent="."]
+offset_left = 405.0
+offset_top = 403.0
+offset_right = 498.0
+offset_bottom = 461.0
+theme_override_font_sizes/font_size = 36
+text = "Start"
+
+[node name="Pause" type="Button" parent="."]
+offset_left = 635.0
+offset_top = 406.0
+offset_right = 747.0
+offset_bottom = 464.0
+theme_override_font_sizes/font_size = 36
+text = "Pause"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -33.5
+offset_right = 20.0
+offset_bottom = 33.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "5"
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
