@@ -1,6 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://dv8s2qrafyv6h"]
+[gd_scene load_steps=8 format=3 uid="uid://dv8s2qrafyv6h"]
 
 [ext_resource type="Script" uid="uid://digm0csc7kca" path="res://count_down.gd" id="1_0rk1c"]
+[ext_resource type="Texture2D" uid="uid://bv66c08ru2i3n" path="res://Assets/missile.png" id="2_h6tfv"]
+[ext_resource type="Texture2D" uid="uid://ea8xou00iqb5" path="res://Assets/missile3.png" id="3_uj5n4"]
+[ext_resource type="Texture2D" uid="uid://c5ttnjxmsupqj" path="res://Assets/missile2.png" id="4_sb8hi"]
+[ext_resource type="Texture2D" uid="uid://bhb547po6a2oy" path="res://Assets/missile4.png" id="4_uj5n4"]
+[ext_resource type="Script" uid="uid://crqhl5bqfng13" path="res://missile.gd" id="6_sb8hi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_expwc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h6tfv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_uj5n4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uj5n4")
+}],
+"loop": true,
+"name": &"launched",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_sb8hi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uj5n4")
+}],
+"loop": true,
+"name": &"preparing",
+"speed": 5.0
+}]
 
 [node name="CountDown" type="CanvasLayer"]
 script = ExtResource("1_0rk1c")
@@ -41,6 +79,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
 text = "5"
+
+[node name="Timer1" type="Label" parent="."]
+offset_left = 446.0
+offset_top = 518.0
+offset_right = 486.0
+offset_bottom = 568.0
+theme_override_font_sizes/font_size = 36
+
+[node name="Timer2" type="Label" parent="."]
+offset_left = 676.0
+offset_top = 519.0
+offset_right = 716.0
+offset_bottom = 569.0
+theme_override_font_sizes/font_size = 36
+
+[node name="Missile" type="AnimatedSprite2D" parent="."]
+position = Vector2(880, 571)
+scale = Vector2(5.843748, 4.96875)
+sprite_frames = SubResource("SpriteFrames_expwc")
+animation = &"launched"
+script = ExtResource("6_sb8hi")
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
