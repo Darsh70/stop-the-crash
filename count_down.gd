@@ -18,10 +18,7 @@ func _on_pause_pressed() -> void:
 		$Timer1.text = str("%.2f" % current_time)
 	elif not $Timer2.text:
 		$Timer2.text = str("%.2f" % current_time)
-	$Missile.prepare()
-	await get_tree().create_timer(2.0).timeout
-	$Missile.launched()
-
+	$MissileManager.launch_next()
 	$Timer.start()
 
 func _on_start_pressed() -> void:
