@@ -1,25 +1,22 @@
-extends AnimatedSprite2D
+extends CharacterBody2D
 
-var velocity = Vector2()
-var speed = 1
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	play("idle")
-	set_process(false)
+
+const SPEED = 300.0
+
+
+func _ready():
+	$AnimatedSprite2D.play("idle")
+	set_physics_process(false)
 	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if is_processing():
-		velocity.y -= speed * delta
-		position += velocity
+func _physics_process(delta: float) -> void:
+	if is_physics_processing():
+		velocity.y -= SPEED * delta
+	move_and_slide()
 
 func prepare():
-	play("preparing")
+	$AnimatedSprite2D.play("preparing")
 
-func launched():
-	play("launched")
-	set_process(true)
-	
-	
+func launch():
+	$AnimatedSprite2D.play("launched")
+	set_physics_process(true)
