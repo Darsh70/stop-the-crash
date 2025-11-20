@@ -20,7 +20,7 @@ func prepare():
 	
 
 func launch_after_delay():
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(0.5).timeout
 	launch()
 	
 	
@@ -28,3 +28,6 @@ func launch():
 	$CPUParticles2D.emitting = true
 	$PrepareLaunchParticles.emitting = false
 	set_physics_process(true)
+	
+func explode():
+	queue_free()
