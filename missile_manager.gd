@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var missile_scene: PackedScene
-@export var start_position = Vector2(-100,0)
+@export var start_position = Vector2(400,400)
 @export var spacing = Vector2(100,0)
 
 var missiles = []
@@ -35,8 +35,5 @@ func launch_next():
 		return
 	var m = missiles[next_index]
 	m.prepare()
-	
-	await get_tree().create_timer(2).timeout
-	m.launch()
 	
 	next_index += 1
