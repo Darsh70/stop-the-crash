@@ -2,56 +2,62 @@
 
 [ext_resource type="Script" uid="uid://dysqnidjau27m" path="res://missile.gd" id="1_p1aio"]
 [ext_resource type="Texture2D" uid="uid://bv66c08ru2i3n" path="res://Assets/missile.png" id="2_12hya"]
-[ext_resource type="Texture2D" uid="uid://ea8xou00iqb5" path="res://Assets/missile3.png" id="3_uf8uv"]
-[ext_resource type="Texture2D" uid="uid://bhb547po6a2oy" path="res://Assets/missile4.png" id="4_ja2gu"]
-[ext_resource type="Texture2D" uid="uid://c5ttnjxmsupqj" path="res://Assets/missile2.png" id="5_u42b4"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_expwc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_12hya")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_uf8uv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_ja2gu")
-}],
-"loop": true,
-"name": &"launched",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_u42b4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_uf8uv")
-}],
-"loop": true,
-"name": &"preparing",
-"speed": 5.0
-}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sb8hi"]
 
+[sub_resource type="Curve" id="Curve_p1aio"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.47976875, 5.416046), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_12hya"]
+offsets = PackedFloat32Array(0, 0.5171233, 1)
+colors = PackedColorArray(0.96862745, 0, 0, 1, 0.98039216, 0.42745098, 0.105882354, 1, 1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_12hya"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.30346823, 200), 0.0, 0.0, 0, 0, Vector2(0.6184971, 200), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_uf8uv"]
+_data = [Vector2(0.06647399, 0.2511078), 0.0, 0.0, 0, 0, Vector2(0.17919074, 0.5807484), 0.0, 0.0, 0, 0, Vector2(0.27456647, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="Missile" type="CharacterBody2D"]
 script = ExtResource("1_p1aio")
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(880, 571)
-scale = Vector2(5.843748, 4.96875)
-sprite_frames = SubResource("SpriteFrames_expwc")
-animation = &"preparing"
-frame_progress = 0.48952407
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(877, 560)
+visible = false
+position = Vector2(877, 516)
 shape = SubResource("CapsuleShape2D_sb8hi")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(376, 209)
+emitting = false
+amount = 1000
+lifetime = 0.4
+emission_shape = 3
+emission_rect_extents = Vector2(15, 1)
+radial_accel_min = -50.0
+radial_accel_max = -40.0
+radial_accel_curve = SubResource("Curve_p1aio")
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_12hya")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(377.99997, 149)
+scale = Vector2(6.90625, 5.53125)
+texture = ExtResource("2_12hya")
+
+[node name="PrepareLaunchParticles" type="CPUParticles2D" parent="."]
+position = Vector2(375, 211)
+emitting = false
+amount = 1000
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+radial_accel_min = 10.0
+radial_accel_max = 50.0
+radial_accel_curve = SubResource("Curve_12hya")
+scale_amount_min = 7.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_uf8uv")

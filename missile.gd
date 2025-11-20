@@ -5,7 +5,6 @@ const SPEED = 300.0
 
 
 func _ready():
-	$AnimatedSprite2D.play("idle")
 	set_physics_process(false)
 	
 
@@ -14,9 +13,18 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= SPEED * delta
 	move_and_slide()
 
-func prepare():
-	$AnimatedSprite2D.play("preparing")
 
+func prepare():
+	$PrepareLaunchParticles.emitting = true
+	launch_after_delay()
+	
+
+func launch_after_delay():
+	await get_tree().create_timer(2).timeout
+	launch()
+	
+	
 func launch():
-	$AnimatedSprite2D.play("launched")
+	$CPUParticles2D.emitting = true
+	$PrepareLaunchParticles.emitting = false
 	set_physics_process(true)
